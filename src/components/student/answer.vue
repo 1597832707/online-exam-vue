@@ -84,14 +84,14 @@
             <p class="topic"><span class="number">{{number}}</span>{{showQuestion}}</p>
             <div v-if="currentType == 1">
               <el-radio-group v-model="radio[index]" @change="getChangeLabel" >
-                <el-radio :label="1">{{showAnswer.answerA}}</el-radio>
-                <el-radio :label="2">{{showAnswer.answerB}}</el-radio>
-                <el-radio :label="3">{{showAnswer.answerC}}</el-radio>
-                <el-radio :label="4">{{showAnswer.answerD}}</el-radio>
+                <el-radio :label="1">sss</el-radio>
+                <el-radio :label="2">s</el-radio>
+                <el-radio :label="3">ss</el-radio>
+                <el-radio :label="4">ssss</el-radio>
               </el-radio-group>
               <div class="analysis" v-if="isPractice">
                 <ul>
-                  <li> <el-tag type="success">正确姿势：</el-tag><span class="right">{{reduceAnswer.rightAnswer}}</span></li>
+                  <li> <el-tag type="success">正确答案：</el-tag><span class="right">C</span></li>
                   <li><el-tag>题目解析：</el-tag></li>
                   <li>{{reduceAnswer.analysis == null ? '暂无解析': reduceAnswer.analysis}}</li>
                 </ul>
@@ -107,7 +107,7 @@
               </div>
               <div class="analysis" v-if="isPractice">
                 <ul>
-                  <li> <el-tag type="success">正确姿势：</el-tag><span class="right">{{topic[2][index].answer}}</span></li>
+                  <li> <el-tag type="success">正确答案：</el-tag><span class="right">{{topic[2][index].answer}}</span></li>
                   <li><el-tag>题目解析：</el-tag></li>
                   <li>{{topic[2][index].analysis == null ? '暂无解析': topic[2][index].analysis}}</li>
                 </ul>
@@ -147,7 +147,7 @@ export default {
     return {
       startTime: null, //考试开始时间
       endTime: null, //考试结束时间
-      time: null, //考试持续时间
+      time: 45, //考试持续时间
       reduceAnswer:[],  //vue官方不支持3层以上数据嵌套,如嵌套则会数据渲染出现问题,此变量直接接收3层嵌套时的数据。
       answerScore: 0, //答题总分数
       bg_flag: false, //已答标识符,已答改变背景色
@@ -155,14 +155,15 @@ export default {
       slider_flag: true, //左侧显示隐藏标识符
       flag: false, //个人信息显示隐藏标识符
       currentType: 1, //当前题型类型  1--选择题  2--填空题  3--判断题
-      radio: [], //保存考生所有选择题的选项
+      radio: [1, 2, 3, 4], //保存考生所有选择题的选项
       title: "请选择正确的选项",
       index: 0, //全局index
       userInfo: { //用户信息
         name: null,
         id: null
       },
-      topicCount: [],//每种类型题目的总数
+      isPractice: true,
+      topicCount: [30,20,15],//每种类型题目的总数
       score: [],  //每种类型分数的总数
       examData: { //考试信息
         // source: null,
@@ -171,7 +172,7 @@ export default {
       topic: {  //试卷信息
 
       },
-      showQuestion: [], //当前显示题目信息
+      showQuestion: ['一下那个选项是正确的：'], //当前显示题目信息
       showAnswer: {}, //当前题目对应的答案选项
       number: 1, //题号
       part: null, //填空题的空格数量
@@ -438,27 +439,12 @@ export default {
           console.log("交卷")
           let date = new Date()
           this.endTime = this.getTime(date)
-          let answerDate = this.endTime.substr(0,10)
-          //提交成绩信息
-          this.$axios({
-            url: '/api/score',
-            method: 'post',
-            data: {
-              examCode: this.examData.examCode, //考试编号
-              studentId: this.userInfo.id, //学号
-              subject: this.examData.source, //课程名称
-              etScore: finalScore, //答题成绩
-              answerDate: answerDate, //答题日期
-            }
-          }).then(res => {
-            if(res.data.code == 200) {
-              this.$router.push({path:'/studentScore',query: {
-                score: finalScore,
-                startTime: this.startTime,
-                endTime: this.endTime
-              }})
-            }
-          })
+          this.$router.push({path:'/studentScore',query: {
+              score: 90,
+              startTime: this.startTime,
+              endTime: this.endTime
+            }})
+
         }).catch(() => {
           console.log("继续答题")
         })
@@ -474,7 +460,7 @@ export default {
             message: '考生注意,考试时间还剩10分钟！！！'
           })
           if(this.time == 0) {
-            console.log("考试时间已到,强制交卷。")
+            console.log("考试时间到,强制交卷。")
           }
         }
       },1000 * 60)

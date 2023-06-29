@@ -50,17 +50,19 @@ export default {
     return {
       pagination: { //分页后的留言列表
         current: 1, //当前页
-        total: null, //记录条数
+        total: 2, //记录条数
         size: 10 //每页条数
       },
       loading: false, //加载标识符
-      score: [], //学生成绩
+      score: [
+        { answerDate: '2023-06-01', subject: '出舱', etScore: 85 },
+        { answerDate: '2023-06-02', subject: '修理', etScore: 70 },
+        // 添加更多数据...
+      ],
       filter: null //过滤参数
     }
   },
   created() {
-    this.getScore()
-    this.loading = true //数据加载则遮罩表格
   },
   methods: {
     getScore() {

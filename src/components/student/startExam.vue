@@ -5,7 +5,7 @@
     <div class="wrapper">
       <ul class="top">
         <li class="order">
-          <el-badge :value="12" class="item" type="primary">
+          <el-badge :value="4" class="item" type="primary">
             <span>全部</span>
           </el-badge>
         </li>
@@ -27,14 +27,14 @@
         <li class="search-li"><div class="icon"><input type="text" placeholder="试卷名称" class="search" v-model="key"><i class="el-icon-search"></i></div></li>
         <li><el-button type="primary" @click="search()">搜索试卷</el-button></li>
       </ul>
-      <ul class="paper" v-loading="loading">
-        <li class="item" v-for="(item,index) in pagination.records" :key="index">
-          <h4 @click="toExamMsg(item.examCode)">{{item.source}}</h4>
-          <p class="name">{{item.source}}-{{item.description}}</p>
+      <ul class="paper">
+        <li class="item" v-for="item in papers" :key="item.id">
+          <h4 @click="toExamMsg(item.id)">{{item.name}}</h4>
+          <p class="name">{{item.id}}-{{item.desc}}</p>
           <div class="info">
-            <i class="el-icon-loading"></i><span>{{item.examDate.substr(0,10)}}</span>
-            <i class="iconfont icon-icon-time"></i><span v-if="item.totalTime != null">限时{{item.totalTime}}分钟</span>
-            <i class="iconfont icon-fenshu"></i><span>满分{{item.totalScore}}分</span>
+            <i class="el-icon-loading"></i><span>{{item.name}}</span>
+            <i class="iconfont icon-icon-time"></i><span v-if="item.time != null">限时{{item.time}}分钟</span>
+            <i class="iconfont icon-fenshu"></i><span>满分{{item.score}}分</span>
           </div>
         </li>
       </ul>
@@ -59,6 +59,24 @@ export default {
   data() {
     return {
       loading: false,
+      papers: [
+        {
+          id: 1,
+          name: '出舱练习' +
+            '',
+          desc: '这是一个出舱练习' +
+            '',
+          time: '2023/06/28',
+          score: 100
+        },
+        {
+          id: 2,
+          name: '数学练习',
+          desc: '这是一份数学练习',
+          time: '2023/06/29',
+          score: 80
+        }
+      ],
       key: null, //搜索关键字
       allExam: null, //所有考试信息
       pagination: { //分页后的考试信息
@@ -73,7 +91,7 @@ export default {
     this.loading = true
   },
   // watch: {
-    
+
   // },
   methods: {
     //获取当前所有考试信息

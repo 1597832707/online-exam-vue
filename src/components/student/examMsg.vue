@@ -3,7 +3,7 @@
   <div id="msg">
     <div class="title">
       <span>试卷列表</span>
-      <span>/  {{examData.source}}</span>
+      <span>出舱练习</span>
     </div>
     <div class="wrapper">
       <ul class="top">
@@ -18,9 +18,9 @@
         </li>
       </ul>
       <ul class="bottom">
-        <li>更新于{{examData.examDate}}</li>
-        <li>来自 {{examData.institute}}</li>
-        <li class="btn">{{examData.type}}</li>
+        <li>更新于2023.06.23</li>
+        <li>来自 ***老师</li>
+        <li class="btn">关于出舱知识</li>
         <li class="right"><el-button @click="toAnswer(examData.examCode)">开始答题</el-button></li>
       </ul>
       <ul class="info">
@@ -33,44 +33,95 @@
           <template slot="title" class="stitle" >
             <div class="title">
               <span>{{examData.source}}</span><i class="header-icon el-icon-info"></i>
-              <span class="time">{{examData.totalScore}}分 / {{examData.totalTime}}分钟</span>
+              <span class="time">100分 / 40分钟</span>
               <el-button type="primary" size="small">点击查看试题详情</el-button>
             </div>
           </template>
           <el-collapse class="inner">
             <el-collapse-item>
               <template slot="title" name="1">
-                <div class="titlei">选择题 (共{{topicCount[0]}}题 共计{{score[0]}}分)</div>
+                <div class="titlei">选择题 (共30题 共计{{score[0]}}分)</div>
               </template>
               <div class="contenti">
-                <ul class="question" v-for="(list, index) in topic[1]" :key="index">
-                  <li>{{index+1}}. {{list.question}} {{list.score}}分</li>
-                </ul>
+                <el-row>
+                  <el-col :span="24" style="margin-top: 30px"  class="button-container">
+                    <el-button type="primary"  style="margin-left: 100px"  circle>1</el-button>
+                    <el-button type="primary" style="margin-left: 100px"  circle>2</el-button>
+                    <el-button type="primary" style="margin-left: 100px"  circle>3</el-button>
+                    <el-button type="primary" style="margin-left: 100px"  circle>4</el-button>
+                    <el-button type="primary" style="margin-left: 100px" circle>5</el-button>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="24" style="margin-top: 50px" class="button-container">
+                    <el-button   style="margin-left: 100px"type="primary" circle>6</el-button>
+                    <el-button  style="margin-left: 100px"  circle>7</el-button>
+                    <el-button  style="margin-left: 100px"  circle>8</el-button>
+                    <el-button  style="margin-left: 100px"  circle>9</el-button>
+                    <el-button  style="margin-left: 100px"  circle>10</el-button>
+                  </el-col>
+                </el-row>
+<!--                <ul class="question" :key="index">-->
+<!--                  <li>-->
+<!--                    <span class="data1">1分</span>-->
+<!--                    <span class="data2">2分</span>-->
+<!--                  </li>-->
+<!--                </ul>-->
               </div>
             </el-collapse-item>
             <el-collapse-item>
               <template slot="title" name="2">
-                <div class="titlei">填空题 (共{{topicCount[1]}}题  共计{{score[1]}}分)</div>
+                <div class="titlei">填空题 (共20题  共计{{score[1]}}分)</div>
               </template>
               <div class="contenti">
-                <ul class="question" v-for="(list, index) in topic[2]" :key="index">
-                  <li>{{topicCount[0]+index+1}}.{{list.question}}  {{list.score}}分</li>
-                </ul>
+                <el-row>
+                  <el-col :span="24" style="margin-top: 30px"  class="button-container">
+                    <el-button type="primary"  style="margin-left: 100px"  circle>1</el-button>
+                    <el-button type="primary" style="margin-left: 100px"  circle>2</el-button>
+                    <el-button type="primary" style="margin-left: 100px"  circle>3</el-button>
+                    <el-button type="primary" style="margin-left: 100px"  circle>4</el-button>
+                    <el-button type="primary" style="margin-left: 100px" circle>5</el-button>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="24" style="margin-top: 50px" class="button-container">
+                    <el-button   style="margin-left: 100px"type="primary" circle>6</el-button>
+                    <el-button  style="margin-left: 100px"  circle>7</el-button>
+                    <el-button  style="margin-left: 100px"  circle>8</el-button>
+                    <el-button  style="margin-left: 100px"  circle>9</el-button>
+                    <el-button  style="margin-left: 100px"  circle>10</el-button>
+                  </el-col>
+                </el-row>
               </div>
             </el-collapse-item>
             <el-collapse-item>
               <template slot="title" name="3">
-                <div class="titlei">判断题 (共{{topicCount[2]}}题 共计{{score[2]}}分)</div>
+                <div class="titlei">判断题 (共15题 共计{{score[2]}}分)</div>
               </template>
               <div class="contenti">
-                <ul class="question" v-for="(list, index) in topic[3]" :key="index">
-                  <li>{{topicCount[0]+topicCount[1]+index+1}}. {{list.question}} {{list.score}}分</li>
-                </ul>
+                <el-row>
+                  <el-col :span="24" style="margin-top: 30px"  class="button-container">
+                    <el-button type="primary"  style="margin-left: 100px"  circle>1</el-button>
+                    <el-button type="primary" style="margin-left: 100px"  circle>2</el-button>
+                    <el-button type="primary" style="margin-left: 100px"  circle>3</el-button>
+                    <el-button type="primary" style="margin-left: 100px"  circle>4</el-button>
+                    <el-button type="primary" style="margin-left: 100px" circle>5</el-button>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="24" style="margin-top: 50px" class="button-container">
+                    <el-button   style="margin-left: 100px"type="primary" circle>6</el-button>
+                    <el-button  style="margin-left: 100px"  circle>7</el-button>
+                    <el-button  style="margin-left: 100px"  circle>8</el-button>
+                    <el-button  style="margin-left: 100px"  circle>9</el-button>
+                    <el-button  style="margin-left: 100px"  circle>10</el-button>
+                  </el-col>
+                </el-row>
               </div>
             </el-collapse-item>
           </el-collapse>
         </el-collapse-item>
-        
+
       </el-collapse>
     </div>
     <!--考生须知对话框-->
@@ -93,14 +144,17 @@ export default {
       dialogVisible: false, //对话框属性
       activeName: '0',  //默认打开序号
       topicCount: [],//每种类型题目的总数
-      score: [],  //每种类型分数的总数
+      score: [30,40,30],  //每种类型分数的总数
       examData: { //考试信息
         // source: null,
         // totalScore: null,
       },
-      topic: {  //试卷信息
-
-      },
+      topic: [
+        {question: '这是第一个题目', score: 5},
+        {question: '这是第二个题目', score: 10},
+        {question: '这是第三个题目', score: 7},
+        //添加更多题目...
+      ]
     }
   },
   mounted() {
@@ -146,6 +200,7 @@ export default {
     }
   }
 }
+
 .right {
   margin-left: auto;
 }
@@ -201,7 +256,7 @@ export default {
   padding: 5px 10px;
   border: 1px solid #88949b;
   border-radius: 4px;
-} 
+}
 .wrapper .bottom {
   display: flex;
   margin-left: 20px;
